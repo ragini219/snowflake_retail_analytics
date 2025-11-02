@@ -1,0 +1,17 @@
+-- Task: Refresh CUSTOMERS_PIPE every hour to check for new files in GCS
+CREATE OR REPLACE TASK REFRESH_CUSTOMERS_PIPE_TASK
+WAREHOUSE = COMPUTE_WH
+SCHEDULE = 'USING CRON 0 * * * * EST'  -- Runs every hour
+COMMENT = 'Refreshes CUSTOMERS_PIPE to load new files from GCS stage'
+AS
+ALTER PIPE RETAIL_ANALYTICS.RAW.CUSTOMERS_PIPE REFRESH;
+
+
+
+-- Task: Refresh ORDERS_PIPE every hour to check for new files in GCS
+CREATE OR REPLACE TASK REFRESH_ORDERS_PIPE_TASK
+WAREHOUSE = COMPUTE_WH
+SCHEDULE = 'USING CRON 0 * * * * EST'  -- Runs every hour
+COMMENT = 'Refreshes ORDERS_PIPE to load new files from GCS stage'
+AS
+ALTER PIPE RETAIL_ANALYTICS.RAW.ORDERS REFRESH;
